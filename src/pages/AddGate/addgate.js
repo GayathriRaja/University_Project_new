@@ -4,6 +4,8 @@ import { addGateDetails } from "../../services";
 import { useAlert } from "react-alert";
 
 function AddGate() {
+  // const { register, handleSubmit, errors } = useForm();
+
   const [gateDetails, setGateDetails] = useState({
     gate_num: 0,
     camera_info: [
@@ -49,14 +51,21 @@ function AddGate() {
     }
   };
   const onClickHandlerSave = (event) => {
-    event.preventDefault();
-    console.log(gateDetails);
+    // event.preventDefault();
+    // console.log(gateDetails);
+
+    gateDetails.camera_info.map((data, index) => {
+      if (data.camera_name !== "") {
+        console.log(data.camera_name);
+      }
+    });
     addGateDetails(gateDetails)
       .then((res) => {
         alert.success("Gate Added Successfully!!!!");
       })
       .catch((error) => {
-        alert.error(error.message);
+        // alert.error("Gate not Added");
+        console.log(error);
       });
   };
   const onClickHandlerGoBack = () => {
@@ -77,17 +86,19 @@ function AddGate() {
         <div className="card-box">
           <div className="container">
             <h3 className="text-center mt-0 mb-4">Add Gate Details</h3>
-            <form onSubmit={onClickHandlerSave}>
+            <form onSubmit={(e) => e.preventDefault()}>
               <div className="form-group">
                 <label htmlFor="inputAddress">Gate No.</label>
                 <input
                   type="number"
+                  min="0"
                   className="form-control"
                   id="gate_num"
                   placeholder="Gate No: ...."
                   onChange={handleChangeCamera}
                   value={gateDetails.gate_num}
                   name="gate_num"
+                  required
                 />
               </div>
               <h4 className="pb-2 pt-1">Camera Details</h4>
@@ -102,6 +113,11 @@ function AddGate() {
                     onChange={handleChangeCamera}
                     value={gateDetails.camera_info[0].camera_name}
                     name="camera_name"
+                    // ref={
+
+                    // }
+                    // ref={value ? required : null}
+                    // {value ? required : null}
                   />
                 </div>
                 <div className="form-group col-md-4">
@@ -114,6 +130,7 @@ function AddGate() {
                     onChange={handleChangeCamera}
                     value={gateDetails.camera_info[0].camera_ip}
                     name="camera_ip"
+                    // ref={camerDetails1({ required: true })}
                   />
                 </div>
                 <div className="form-group col-md-4">
@@ -124,6 +141,7 @@ function AddGate() {
                     onChange={handleChangeCamera}
                     value={gateDetails.camera_info[0].direction}
                     name="direction"
+                    // ref={camerDetails1({ required: true })}
                   >
                     <option value="">Select Direction</option>
                     <option value="in">IN</option>

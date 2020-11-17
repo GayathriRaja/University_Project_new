@@ -6,6 +6,7 @@ import HungerStation from "../../images/HungerStation.png";
 import maintenanceoverview1 from "../../images/maintenance-overview-1.jpg";
 import visitoricon from "../../images/visitor icon.png";
 import { getVehicleStatus, addVehicleDetected } from "../../services";
+import { Link, useLocation } from "react-router-dom";
 
 const VIDEO_LINKS = {
   "example-1": {
@@ -41,6 +42,8 @@ const VIDEO_LINKS = {
 };
 
 const Campage = ({ location }) => {
+  const locationIP = useLocation();
+
   const currentVideo = VIDEO_LINKS[location.pathname.split("/")[2]];
   const [state, setState] = useState({
     name: "",
@@ -61,14 +64,15 @@ const Campage = ({ location }) => {
     console.log(state);
   };
   useEffect(() => {
+    console.log("ipAdress:" + locationIP.state.ipAddress);
     document.title = "Dashboard-Home | KAU";
     const interval = setInterval(() => {
       getVehicleStatus({
         camera_info: {
-          camera_ip:
-            vehicleInfo != null
-              ? vehicleInfo.camera_info.camera_ip
-              : "192.168.5.192",
+          camera_ip: locationIP.state.ipAddress,
+          // vehicleInfo != null
+          //   ? vehicleInfo.camera_info.camera_ip
+          //   : "192.168.5.192",
         },
       })
         .then((data) => {

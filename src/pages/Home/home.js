@@ -1,7 +1,21 @@
 import React, { useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import VideoPlayer from "../../components/VideoJs/videojs";
 const Home = () => {
+  const history = useHistory();
+
+  const onClickHandlerVideo1 = (ipAddress) => {
+    console.log("ipAdress:" + ipAddress);
+    history.push("/campage/example-1", { ipAddress: ipAddress });
+  };
+  const onClickHandlerVideo2 = (ipAddress) => {
+    console.log("ipAdress:" + ipAddress);
+    history.push("/campage/example-2", { ipAddress: ipAddress });
+  };
+  const onClickHandlerVideo3 = (ipAddress) => {
+    console.log("ipAdress:" + ipAddress);
+    history.push("/campage/example-3", { ipAddress: ipAddress });
+  };
   const video1JsOptions = {
     autoplay: true,
     controls: true,
@@ -9,6 +23,11 @@ const Home = () => {
       {
         src: "http://localhost:8080/stream/sub_stream_192/index.m3u8",
         type: "application/x-mpegURL",
+        camera_info: {
+          camera_name: "Gate1-Entry1",
+          camera_ip: "192.168.5.190",
+          direction: "entry",
+        },
       },
     ],
   };
@@ -19,6 +38,11 @@ const Home = () => {
       {
         src: "http://localhost:8080/stream/sub_stream_190/index.m3u8",
         type: "application/x-mpegURL",
+        camera_info: {
+          camera_name: "Gate2-Entry2",
+          camera_ip: "192.168.5.191",
+          direction: "entry",
+        },
       },
     ],
   };
@@ -29,6 +53,11 @@ const Home = () => {
       {
         src: "http://localhost:8080/stream/sub_stream_191/index.m3u8",
         type: "application/x-mpegURL",
+        camera_info: {
+          camera_name: "Gate3-Entry3",
+          camera_ip: "192.168.5.192",
+          direction: "entry",
+        },
       },
     ],
   };
@@ -52,7 +81,14 @@ const Home = () => {
                     My route
                   </Link> */}
 
-                  <Link to="/campage/example-1">
+                  <div
+                    onClick={() => {
+                      onClickHandlerVideo1(
+                        video1JsOptions.sources[0].camera_info.camera_ip
+                      );
+                    }}
+                  >
+                    {/* to="/campage/example-1" */}
                     <h4 className="header-title mt-0 mb-0">
                       Gate Name/No: Gate-1
                     </h4>
@@ -74,13 +110,20 @@ const Home = () => {
                       />
                     </video> */}
                     <VideoPlayer {...video1JsOptions} />
-                  </Link>
+                  </div>
                 </div>
               </div>
 
               <div className="col-xl-6 col-md-6">
                 <div className="card-box">
-                  <Link to="/campage/example-2">
+                  <div
+                    onClick={() => {
+                      onClickHandlerVideo2(
+                        video2JsOptions.sources[0].camera_info.camera_ip
+                      );
+                    }}
+                  >
+                    {/* to="/campage/example-2" */}
                     <h4 className="header-title mt-0 mb-0">
                       Gate Name/No: Gate-2
                     </h4>
@@ -100,12 +143,19 @@ const Home = () => {
                       />
                     </video> */}
                     <VideoPlayer {...video2JsOptions} />
-                  </Link>
+                  </div>
                 </div>
               </div>
               <div className="col-xl-6 col-md-6">
                 <div className="card-box">
-                  <Link to="/campage/example-3">
+                  <div
+                    onClick={() => {
+                      onClickHandlerVideo3(
+                        video3JsOptions.sources[0].camera_info.camera_ip
+                      );
+                    }}
+                  >
+                    {/* to="/campage/example-3" */}
                     <h4 className="header-title mt-0 mb-0">
                       Gate Name/No: Gate-3
                     </h4>
@@ -126,7 +176,7 @@ const Home = () => {
                       />
                     </video> */}
                     <VideoPlayer {...video3JsOptions} />
-                  </Link>
+                  </div>
                 </div>
               </div>
             </div>

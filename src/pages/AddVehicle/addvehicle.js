@@ -27,35 +27,11 @@ const AddVehicle = () => {
   };
 
   const onClickHandlerSubmit = (e) => {
-    console.log(vehicleDetails);
     addVehicleDetails(vehicleDetails)
       .then((res) => {
         alert.success("Number Plate Added Successfully!!!!");
       })
       .catch((error) => console.log(error));
-
-    // console.log("name:" + name);
-    // console.log("vehicleNumber:" + vehicleNumber);
-    // console.log("deparment:" + deparment);
-
-    // console.log("vehicleNumber:" + vehicleNumber);
-    // console.log(JSON.stringify({ number_plate: vehicleNumber }));
-    // if (vehicleNumber != "") {
-    //   await fetch("http://localhost:8537/api/vehicle", {
-    //     method: "POST",
-    //     headers: { "Content-Type": "application/json" },
-    //     body: JSON.stringify({
-    //       number_plate: vehicleNumber,
-    //     }),
-    //   })
-    //     .then((result) => result.json())
-    //     .then((result) => {
-    //       console.log("Success:" + result);
-    //     })
-    //     .catch((error) => {
-    //       console.log("error:" + error);
-    //     });
-    // }
   };
 
   // useEffect(() => {
@@ -91,54 +67,55 @@ const AddVehicle = () => {
                   Add Vehicle
                 </h1>
                 <div className="container">
-                  {/* <form> */}
-                  {/* <!--   <form> --> */}
-                  <div className="form-group">
-                    <input
-                      type="text"
-                      className="form-control"
-                      id="name"
-                      placeholder="Enter Name"
-                      // name="name"
-                      onChange={handleChangeHandlerVehicle}
-                      // value={vehicleDetails.name}
-                      // name="name"
-                    />
-                  </div>
-                  <div className="form-group">
-                    <input
-                      type="text"
-                      className="form-control"
-                      id="vehicle"
-                      placeholder="Enter Vehicle No."
-                      // name="vehicle"
-                      onChange={handleChangeHandlerVehicle}
-                      value={vehicleDetails.number_plate}
-                      name="number_plate"
-                    />
-                  </div>
-                  <div className="form-group">
-                    <input
-                      type="text"
-                      className="form-control"
-                      id="deparment"
-                      placeholder="Enter Department"
-                      // name="deparment"
-                      onChange={handleChangeHandlerVehicle}
-                      required
-                      // value={vehicleDetails.department}
-                      // name="department"
-                    />
-                  </div>
-                  <button
-                    //type="submit"
-                    onClick={onClickHandlerSubmit}
-                    id="btnSubmit"
-                    className="btn btn-success"
-                  >
-                    Add
-                  </button>
-                  {/* </form> */}
+                  <form onSubmit={(e) => e.preventDefault()}>
+                    {/* <!--   <form> --> */}
+                    <div className="form-group">
+                      <input
+                        type="text"
+                        className="form-control"
+                        id="name"
+                        placeholder="Enter Name"
+                        // name="name"
+                        onChange={handleChangeHandlerVehicle}
+                        // value={vehicleDetails.name}
+                        // name="name"
+                      />
+                    </div>
+                    <div className="form-group">
+                      <input
+                        type="text"
+                        className="form-control"
+                        id="vehicle"
+                        placeholder="Enter Vehicle No."
+                        // name="vehicle"
+                        onChange={handleChangeHandlerVehicle}
+                        value={vehicleDetails.number_plate}
+                        name="number_plate"
+                        required
+                      />
+                    </div>
+                    <div className="form-group">
+                      <input
+                        type="text"
+                        className="form-control"
+                        id="deparment"
+                        placeholder="Enter Department"
+                        // name="deparment"
+                        onChange={handleChangeHandlerVehicle}
+
+                        // value={vehicleDetails.department}
+                        // name="department"
+                      />
+                    </div>
+                    <button
+                      //type="submit"
+                      onClick={onClickHandlerSubmit}
+                      id="btnSubmit"
+                      className="btn btn-success"
+                    >
+                      Add
+                    </button>
+                  </form>
                   {/* </div> */}
                 </div>
               </div>
