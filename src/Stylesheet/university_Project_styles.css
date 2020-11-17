@@ -1,0 +1,25 @@
+.login-style {
+  margin-top: 10vh;
+}
+
+.card-design {
+  width: 35vw;
+  height: 60vh;
+  background: white;
+  border-radius: 5px;
+  /* font-size: 80%; */
+  font-weight: 500;
+  margin: 0 0 0 70vh;
+}
+
+.background-image {
+  background-size: cover;
+
+  background-image: url("../Assests/big/kaust_web.jpg");
+
+  height: 120%;
+  width: 100%;
+  position: absolute;
+  left: 0;
+  right: 0;
+}
