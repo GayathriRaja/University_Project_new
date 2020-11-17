@@ -4,18 +4,18 @@ import VideoPlayer from "../../components/VideoJs/videojs";
 const Home = () => {
   const history = useHistory();
 
-  const onClickHandlerVideo1 = (ipAddress) => {
+  const onClickHandlerVideo = (url, ipAddress) => {
     console.log("ipAdress:" + ipAddress);
-    history.push("/campage/example-1", { ipAddress: ipAddress });
+    history.push(`/campage/${url}`, { ipAddress: ipAddress });
   };
-  const onClickHandlerVideo2 = (ipAddress) => {
-    console.log("ipAdress:" + ipAddress);
-    history.push("/campage/example-2", { ipAddress: ipAddress });
-  };
-  const onClickHandlerVideo3 = (ipAddress) => {
-    console.log("ipAdress:" + ipAddress);
-    history.push("/campage/example-3", { ipAddress: ipAddress });
-  };
+  // const onClickHandlerVideo2 = (ipAddress) => {
+  //   console.log("ipAdress:" + ipAddress);
+  //   history.push("/campage/example-2", { ipAddress: ipAddress });
+  // };
+  // const onClickHandlerVideo3 = (ipAddress) => {
+  //   console.log("ipAdress:" + ipAddress);
+  //   history.push("/campage/example-3", { ipAddress: ipAddress });
+  // };
   const video1JsOptions = {
     autoplay: true,
     controls: true,
@@ -83,7 +83,8 @@ const Home = () => {
 
                   <div
                     onClick={() => {
-                      onClickHandlerVideo1(
+                      onClickHandlerVideo(
+                        "example-1",
                         video1JsOptions.sources[0].camera_info.camera_ip
                       );
                     }}
@@ -118,7 +119,8 @@ const Home = () => {
                 <div className="card-box">
                   <div
                     onClick={() => {
-                      onClickHandlerVideo2(
+                      onClickHandlerVideo(
+                        "example-2",
                         video2JsOptions.sources[0].camera_info.camera_ip
                       );
                     }}
@@ -150,7 +152,8 @@ const Home = () => {
                 <div className="card-box">
                   <div
                     onClick={() => {
-                      onClickHandlerVideo3(
+                      onClickHandlerVideo(
+                        "example-3",
                         video3JsOptions.sources[0].camera_info.camera_ip
                       );
                     }}

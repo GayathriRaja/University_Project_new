@@ -2,9 +2,11 @@ import React, { useState, useEffect } from "react";
 import { useHistory } from "react-router-dom";
 import { addGateDetails } from "../../services";
 import { useAlert } from "react-alert";
+import GateForm from "./GateForm";
 
 function AddGate() {
   // const { register, handleSubmit, errors } = useForm();
+  const [addFormFields, setAddFormFields] = useState([1]);
 
   const [gateDetails, setGateDetails] = useState({
     gate_num: 0,
@@ -14,24 +16,26 @@ function AddGate() {
         camera_ip: "",
         direction: "",
       },
-      {
-        camera_name: "",
-        camera_ip: "",
-        direction: "",
-      },
-      {
-        camera_name: "",
-        camera_ip: "",
-        direction: "",
-      },
+      // {
+      //   camera_name: "",
+      //   camera_ip: "",
+      //   direction: "",
+      // },
+      // {
+      //   camera_name: "",
+      //   camera_ip: "",
+      //   direction: "",
+      // },
     ],
   });
   const history = useHistory();
   const alert = useAlert();
   useEffect(() => {
     document.title = "Add Gate | KAU";
+    setAddFormFields([1]);
   }, []);
   const handleChangeCamera = (event) => {
+    console.log(event.target.value);
     const { id, name, value } = event.target;
     if (name === "gate_num") {
       setGateDetails({ ...gateDetails, [name]: parseInt(value) });
@@ -53,7 +57,11 @@ function AddGate() {
   const onClickHandlerSave = (event) => {
     // event.preventDefault();
     // console.log(gateDetails);
+    console.log("Number:" + addFormFields);
 
+    addFormFields.map((data) => {
+      console.log(data);
+    });
     gateDetails.camera_info.map((data, index) => {
       if (data.camera_name !== "") {
         console.log(data.camera_name);
@@ -70,6 +78,78 @@ function AddGate() {
   };
   const onClickHandlerGoBack = () => {
     history.goBack();
+  };
+
+  const onClickAddFormGate = () => {
+    var temp = gateDetails.camera_info;
+    temp.concat({
+      camera_name: "",
+      camera_ip: "",
+      direction: "",
+    });
+
+    // setGateDetails(temp);
+    setAddFormFields(addFormFields.concat(1));
+  };
+
+  // useEffect(() => {
+  //   console.log("Value:" + value);
+  // }, [gateDetails]);
+  // useEffect(() => {
+  //   alert.show("addFormFields:" + addFormFields);
+  // }, [addFormFields]);
+
+  const FormGate = () => {
+    return (
+      <div className="form-row">
+        <div className="form-group col-md-4">
+          <label htmlFor="camera-name">Name</label>
+          <input
+            type="text"
+            className="form-control"
+            id="0_camera_name"
+            placeholder="Camera Name"
+            onChange={handleChangeCamera}
+            value={gateDetails.camera_info[0].camera_name}
+            name="camera_name"
+            // ref={
+
+            // }
+            // ref={value ? required : null}
+            // {value ? required : null}
+          />
+        </div>
+        <div className="form-group col-md-4">
+          <label htmlFor="ipaddress">IP Address</label>
+          <input
+            type="text"
+            className="form-control"
+            id="0_camera_ip"
+            placeholder="IP Address"
+            onChange={handleChangeCamera}
+            value={gateDetails.camera_info[0].camera_ip}
+            name="camera_ip"
+            // ref={camerDetails1({ required: true })}
+          />
+        </div>
+        <div className="form-group col-md-4">
+          <label htmlFor="direction">Direction</label>
+          <select
+            className="form-control"
+            id="0_direction"
+            onChange={handleChangeCamera}
+            value={gateDetails.camera_info[0].direction}
+            name="direction"
+            // ref={camerDetails1({ required: true })}
+          >
+            <option value="">Select Direction</option>
+            <option value="in">IN</option>
+            <option value="out">OUT</option>
+            <option value="entry">ENTRY</option>
+          </select>
+        </div>
+      </div>
+    );
   };
 
   return (
@@ -102,130 +182,17 @@ function AddGate() {
                 />
               </div>
               <h4 className="pb-2 pt-1">Camera Details</h4>
-              <div className="form-row">
-                <div className="form-group col-md-4">
-                  <label htmlFor="camera-name">Name</label>
-                  <input
-                    type="text"
-                    className="form-control"
-                    id="0_camera_name"
-                    placeholder="Camera Name"
-                    onChange={handleChangeCamera}
-                    value={gateDetails.camera_info[0].camera_name}
-                    name="camera_name"
-                    // ref={
-
-                    // }
-                    // ref={value ? required : null}
-                    // {value ? required : null}
-                  />
-                </div>
-                <div className="form-group col-md-4">
-                  <label htmlFor="ipaddress">IP Address</label>
-                  <input
-                    type="text"
-                    className="form-control"
-                    id="0_camera_ip"
-                    placeholder="IP Address"
-                    onChange={handleChangeCamera}
-                    value={gateDetails.camera_info[0].camera_ip}
-                    name="camera_ip"
-                    // ref={camerDetails1({ required: true })}
-                  />
-                </div>
-                <div className="form-group col-md-4">
-                  <label htmlFor="direction">Direction</label>
-                  <select
-                    className="form-control"
-                    id="0_direction"
-                    onChange={handleChangeCamera}
-                    value={gateDetails.camera_info[0].direction}
-                    name="direction"
-                    // ref={camerDetails1({ required: true })}
-                  >
-                    <option value="">Select Direction</option>
-                    <option value="in">IN</option>
-                    <option value="out">OUT</option>
-                    <option value="entry">ENTRY</option>
-                  </select>
-                </div>
-              </div>
-              <div className="form-row">
-                <div className="form-group col-md-4">
-                  <input
-                    type="text"
-                    className="form-control"
-                    id="1_camera_name"
-                    placeholder="Camera Name"
-                    onChange={handleChangeCamera}
-                    value={gateDetails.camera_info[1].camera_name}
-                    name="camera_name"
-                  />
-                </div>
-                <div className="form-group col-md-4">
-                  <input
-                    type="text"
-                    className="form-control"
-                    id="1_camera_ip"
-                    placeholder="IP Address"
-                    onChange={handleChangeCamera}
-                    value={gateDetails.camera_info[1].camera_ip}
-                    name="camera_ip"
-                  />
-                </div>
-                <div className="form-group col-md-4">
-                  <select
-                    className="form-control"
-                    id="1_direction"
-                    onChange={handleChangeCamera}
-                    value={gateDetails.camera_info[1].direction}
-                    name="direction"
-                  >
-                    <option value="">Select Direction</option>
-                    <option value="in">IN</option>
-                    <option value="out">OUT</option>
-                    <option value="entry">ENTRY</option>
-                  </select>
-                </div>
-              </div>
-              <div className="form-row">
-                <div className="form-group col-md-4">
-                  <input
-                    type="text"
-                    className="form-control"
-                    id="2_camera_name"
-                    placeholder="Camera Name"
-                    onChange={handleChangeCamera}
-                    value={gateDetails.camera_info[2].camera_name}
-                    name="camera_name"
-                  />
-                </div>
-                <div className="form-group col-md-4">
-                  <input
-                    type="text"
-                    className="form-control"
-                    id="2_camera_ip"
-                    placeholder="IP Address"
-                    onChange={handleChangeCamera}
-                    value={gateDetails.camera_info[2].camera_ip}
-                    name="camera_ip"
-                  />
-                </div>
-                <div className="form-group col-md-4">
-                  <select
-                    className="form-control"
-                    id="2_direction"
-                    onChange={handleChangeCamera}
-                    value={gateDetails.camera_info[2].direction}
-                    name="direction"
-                  >
-                    <option value="">Select Direction</option>
-                    <option value="in">IN</option>
-                    <option value="out">OUT</option>
-                    <option value="entry">ENTRY</option>
-                  </select>
-                </div>
-              </div>
+              {/* {
+                for (let i = 0; i < addFormFields; i++) {
+                  console
+                  
+                }
+              } */}
+              {addFormFields.map((data) => {
+                console.log(data);
+                return <FormGate />;
+              })}
+              <button onClick={onClickAddFormGate}>+</button>
               <div className="text-center mt-3">
                 <button
                   id="btnSave"
